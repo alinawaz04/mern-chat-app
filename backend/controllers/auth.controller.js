@@ -1,4 +1,5 @@
 import User from "../models/user.model.js";
+import bcrypt from "bcryptjs";
 
 export const signup = async (req, res) => {
   try {
@@ -14,7 +15,9 @@ export const signup = async (req, res) => {
       return res.status(400).json({ error: "Passwords do not match" });
     }
 
-    // TODO Hash password
+    // Hash password
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(password, salt);
 
     const maleProfilePic = `https://avatar.iran.liara.run/public/boy?username=${username}`;
     const femaleProfilePic = `https://avatar.iran.liara.run/public/girl?username=${username}`;
@@ -22,7 +25,7 @@ export const signup = async (req, res) => {
     const newUser = new User({
       fullName,
       username,
-      password,
+      password: hashedPassword,
       gender,
       profilePic: gender === "male" ? maleProfilePic : femaleProfilePic,
     });
