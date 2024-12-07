@@ -1,4 +1,4 @@
-# Real time chat app utilizing MERN + Socket.io + JWT
+# Real time, full-stack, chat app utilizing MERN + Socket.io + JWT
 
 - Tech stack: MERN + Socket.io + TailwindCSS + Daisy UI
 - Authentication && Authorization with JWT
