@@ -3,7 +3,7 @@ import { config } from "dotenv";
 import authRoutes from "./routes/auth.routes.js";
 import connectToMongoDB from "./db/connectToMongoDB.js";
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 // init express application
 const app = express();
 
