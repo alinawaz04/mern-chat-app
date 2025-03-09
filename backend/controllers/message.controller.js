@@ -1,11 +1,31 @@
-import Message from "../models/message.model";
+import Message from "../models/message.model.js";
 
 export const sendMessage = async (req, res) => {
   try {
     const { recipientId, message } = req.body;
 
+    // Make sure req.user exists (added by protectRoute middleware)
+    if (!req.user) {
+      return res
+        .status(401)
+        .json({ error: "You must be logged in to send messages" });
+    }
+
+    const senderId = req.user._id;
+
+    // Log important values for debugging
+    console.log("Sender ID:", senderId);
+    console.log("Recipient ID:", recipientId);
+    console.log("Message:", message);
+
+    if (!recipientId || !message) {
+      return res
+        .status(400)
+        .json({ error: "Recipient ID and message content are required" });
+    }
+
     const newMessage = new Message({
-      sender,
+      sender: senderId,
       recipient: recipientId,
       message,
     });
